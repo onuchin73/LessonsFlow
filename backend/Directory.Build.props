@@ -1,0 +1,30 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<UserSecretsId>161965b4-0b18-4d27-a698-a89306ef671b</UserSecretsId>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<AnalysisLevel>latest</AnalysisLevel>
+	<AnalysisMode>All</AnalysisMode>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<EnableStyleCopAnalyzers>true</EnableStyleCopAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+	
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnableStyleCopAnalyzers>true</EnableStyleCopAnalyzers>
+	</PropertyGroup>
+
+</Project>

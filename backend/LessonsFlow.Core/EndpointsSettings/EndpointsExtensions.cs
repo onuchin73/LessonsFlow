@@ -1,0 +1,33 @@
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Reflection;
+
+namespace LessonsFlow.Core.EndpointsSettings;
+
+public static class EndpointsExtensions
+{
+    public static IServiceCollection AddEndpoints(this IServiceCollection services, Assembly assembly)
+    {
+        IEnumerable<ServiceDescriptor> serviceDescriptors = assembly
+            .DefinedTypes
+            .Where(type => type is { IsAbstract: false, IsInterface: false } && type.IsAssignableTo(typeof(IEndpoint)))
+            .Select(type => ServiceDescriptor.Transient(typeof(IEndpoint), type));
+
+        services.TryAddEnumerable(serviceDescriptors);
+
+        return services;
+    }
+
+    public static IApplicationBuilder UseEndpoints(this WebApplication app, RouteGroupBuilder? routeGroupBuilder = null)
+    {
+        var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();
+
+        IEndpointRouteBuilder builber = routeGroupBuilder is null ? app : routeGroupBuilder;
+
+        foreach (var endpoint in endpoints)
+        {
+            endpoint.MapEndpoint(builber);
+        }
+
+        return app;
+    }
+}
